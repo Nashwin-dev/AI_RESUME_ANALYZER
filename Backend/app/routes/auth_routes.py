@@ -17,15 +17,14 @@ def get_db():
 def signup(user:UserCreate,db:Session=Depends(get_db)):
     existing=get_user_by_email(db,user.email)
     if existing:
-        return HTTPException(status_code=400,message="User Already Exist")
+        raise HTTPException(status_code=400,detail="User Already Exist")
     User=create_user(db,user.username,user.email,user.password)
 
     return{
         "message":"User has been Created Successfully",
         "user":{
             "username":User.username,
-            "email":User.email,
-            "password":User.password_hashed
+            "email":User.email
         }
     }
 

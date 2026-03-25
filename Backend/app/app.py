@@ -4,8 +4,9 @@ from app.database import base,engine
 from app.routes import auth_routes
 
 app=FastAPI()
-
-base.metadata.create_all(bind=engine)
+@app.on_event("startup")
+def on_startup():
+    base.metadata.create_all(bind=engine)
 
 app.include_router(auth_routes.router,prefix="/auth",tags=["Auth"])
 app.add_middleware(

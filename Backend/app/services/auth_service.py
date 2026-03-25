@@ -1,4 +1,4 @@
-from sqlalchemy.orm import session
+from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from datetime import datetime,timedelta
 from jose import jwt 
@@ -13,7 +13,7 @@ def hash_password(password: str):
 def verify_password(plain_password: str,hashed_password: str):
     return pwd_context.verify(plain_password,hashed_password)
 
-def create_user(db: session,username: str,email: str,password: str):
+def create_user(db: Session,username: str,email: str,password: str):
     hashed_password=hash_password(password)
     user=User(username=username,email=email,password_hashed=hashed_password)
     db.add(user)
@@ -21,7 +21,7 @@ def create_user(db: session,username: str,email: str,password: str):
     db.refresh(user)
     return user
 
-def get_user_by_email(db:session,email:str):
+def get_user_by_email(db:Session,email:str):
     return db.query(User).filter(User.email==email).first()
 
 def create_access_token(data: dict):

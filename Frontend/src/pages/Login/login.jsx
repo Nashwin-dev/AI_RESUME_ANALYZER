@@ -9,10 +9,12 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError]=useState("");
     const navigate=useNavigate();
+    const API_URL=import.meta.env.VITE_API_URL;
+    console.log(API_URL)
 
     const handleLogin = async () => {
         try {
-            const response = await fetch("http://127.0.0.1:8000/auth/login", {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -41,7 +43,7 @@ function Login() {
         <div className="login-container">
             
             <div className="login-card">
-                <div classname="error-card">{error}</div>
+                <div className="error-card">{error}</div>
                 <h1 className="login-main-title">AI-RESUME-ANALYZER</h1>
                 <h2 className="login-title">Login</h2>
                 <div className="login-form-group">

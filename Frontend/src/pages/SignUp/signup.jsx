@@ -7,10 +7,11 @@ function Signup(){
     const[email,setEmail]=useState("");
     const[password,setPassword]=useState("");
     const navigate=useNavigate();
+    const API_URL=import.meta.env.VITE_API_URL;
 
     const handleSignup = async () => {
         try{
-            const response= await fetch("http://127.0.0.1:8000/auth/signup",{
+            const response= await fetch(`${API_URL}/auth/signup`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
